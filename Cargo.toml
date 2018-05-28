@@ -1,0 +1,17 @@
+[package]
+name = "mpupd"
+version = "0.1.0"
+authors = ["Zachary Emmert <zack.emmert@gmail.com>"]
+
+
+[dependencies]
+reqwest = "0.8.5"
+crypto-hash = "0.3.1"
+
+serde = "1.0.58"
+toml = "0.4.6"
+serde_derive = "1.0.58"
+
+structopt = "0.2.8"
+config = "0.8.0"
+lazy_static = "1.0.0"

@@ -1,0 +1,3 @@
+[channels]
+debug = "https://www.example.com/some/data/debug.toml" # CHANGE THESE
+stable = "https://www.example.com/some/data/stable.toml"
