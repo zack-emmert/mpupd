@@ -70,6 +70,7 @@ Instructions:
     cd target/release
     cp mpupd /path/to/.minecraft
 ```
+Additionally, copy the template configuration file in the project root to the same location, and adjust the listed channels according to the Modpack.
 
 ## Embedding the executable into a Modpack
 
