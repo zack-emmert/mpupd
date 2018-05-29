@@ -15,17 +15,20 @@ beta = "https://www.some-website.com/channels/beta.toml"
 
 ### Channel file
 
-Each update channel is required to have a single TOML file made available at the location specified in the configuration file. The channel TOML file is simply an array of strings called `updates`, each being the URL of a particular released update, also specified in TOML (see next section for more information). **These URLs must never change.** When a new update is released, simply edit this file and add an new entry.
+Each update channel is required to have a single TOML file made available at the location specified in the configuration file. The channel TOML file contains a list of each update, specified using TOML's array-of-tables syntax (See the below example for more information). To release a new update, simply edit this file and add a new entry.
 
 Example:
 
 `https://www.some-website.com/channels/stable.toml`
 
 ```toml
-updates = [
-    "https://www.some-website.com/channels/stable/1.0.toml",
-    "https://www.some-website.com/channels/stable/1.1.toml",
-]
+[[update]]
+url = "https://www.some-website.com/channels/stable/1.0.toml"
+version = "1.0.0" # **MUST** be in SemVer format
+
+[[update]]
+url = "https://www.some-website.com/channels/stable/1.1.toml"
+version = "1.1.0"
 ```
 
 ### Update File
@@ -34,7 +37,7 @@ Each update for each channel must be specified in its own TOML-formatted file, a
 
 Example
 
-`https://www.some-website.com/channels/stable/1.0/toml`
+`https://www.some-website.com/channels/stable/1.0.toml`
 
 ```toml
 # An example mod addition

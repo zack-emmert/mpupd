@@ -1,12 +1,13 @@
 [package]
 name = "mpupd"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Zachary Emmert <zack.emmert@gmail.com>"]
 
 
 [dependencies]
 reqwest = "0.8.5"
 crypto-hash = "0.3.1"
+semver = {version = "0.9.0", features = ["serde"]}
 
 serde = "1.0.58"
 toml = "0.4.6"

@@ -5,21 +5,46 @@ use std::{
     fs
 };
 use super::CLIENT; // Use client already defined earlier
+use semver::Version;
 
 #[derive(Deserialize,Debug,Clone)]
 pub struct Channel {
-    pub updates: Vec<String>
+    #[serde(rename = "update")]
+    pub updates: Vec<Update>
+}
+
+impl Channel {
+    pub fn sort_by_version(mut self) -> Self {
+        self.updates.sort_unstable_by(|a,b|{a.version().cmp(&b.version())});
+
+        Channel { updates: self.updates }
+    }
 }
 
 #[derive(Deserialize,Debug,Clone)]
 pub struct Update {
-    #[serde(rename = "addition")]
-    additions: Vec<Addition>,
-    #[serde(rename = "deletion")]
-    deletions: Vec<Deletion>,
+    url: String,
+    version: Version,
 }
 
 impl Update {
+    pub fn url(&self) -> &str {
+        &self.url
+    }
+    pub fn version(&self) -> &Version {
+        &self.version
+    }
+}
+
+#[derive(Deserialize,Debug,Clone)]
+pub struct UpdateFile {
+    #[serde(rename = "addition",default)]
+    additions: Vec<Addition>,
+    #[serde(rename = "deletion",default)]
+    deletions: Vec<Deletion>,
+}
+
+impl UpdateFile {
     pub fn update(self) { // Carries out all additions and deletions in a single update
         let d = self.deletions.clone();
 

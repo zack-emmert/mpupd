@@ -1,5 +1,6 @@
 extern crate reqwest;
 extern crate crypto_hash;
+extern crate semver;
 
 extern crate serde;
 extern crate toml;
@@ -19,7 +20,7 @@ use structopt::StructOpt;
 use std::{
     collections::HashMap,
     fs::OpenOptions,
-    io::{Read,Write},
+    io::{Read,Write,Seek,SeekFrom},
 };
 use reqwest::Client;
 
@@ -31,22 +32,24 @@ lazy_static! {
 
 fn main() {
 
-    let mut log = OpenOptions::new().read(true).write(true).append(true).open("mpupd.log").unwrap();
+    let mut ts_file = OpenOptions::new().read(true).write(true).create(true).open("mpupd_latestversion.log").unwrap();
     let mut s = String::new();
-    log.read_to_string(&mut s).unwrap();
-    let log_data: Vec<String> = {
-        let mut out: Vec<String> = s.lines().map(|v|{v.to_owned()}).collect();
-        out.sort_unstable();
-        out
+    ts_file.read_to_string(&mut s).unwrap();
+    let version = match semver::Version::parse(&s) {
+        Ok(v) => v,
+        Err(_) => semver::Version::new(0,0,0),
     };
 
     if let Some(url) = get_channel_url(&CLI_OPTIONS.channel) {
-        if let Some(channel) = toml_request::<types::Channel>(&url) {
-            for update_url in channel.updates.iter() {
-                if let Err(_) = log_data.binary_search(update_url) {
-                    if let Some(update) = toml_request::<types::Update>(update_url) {
-                        update.update();
-                        log.write_all(format!("{}\n",update_url).as_bytes()).unwrap();
+        if let Some(mut channel) = toml_request::<types::Channel>(&url) {
+            for update in channel.sort_by_version().updates.iter() {
+                if update.version() > &version {
+                    println!("{:?}",update);
+                    if let Some(update_file) = toml_request::<types::UpdateFile>(update.url()) {
+                        update_file.update();
+                        ts_file.set_len(0).unwrap();
+                        ts_file.seek(SeekFrom::Start(0)).unwrap();
+                        ts_file.write_all(format!("{}",update.version()).as_bytes()).unwrap();
                     }
                 }
             }
@@ -69,12 +72,14 @@ fn toml_request<T>(url: &str) -> Option<T> where for<'de> T: serde::Deserialize<
     match CLIENT.get(url).send() {
         Ok(mut response) => {
 
-            if let Ok(out) = toml::from_str(&response.text().unwrap()) {
-                Some(out)
+            match toml::from_str(&response.text().unwrap()) {
+                Ok(out) => Some(out),
+                Err(e) => {
+                    eprintln!("{}",e);
+                    None
+                }
             }
-            else {
-                None
-            }
+            
         }
         Err(_) => {
             eprintln!("Unable to fetch TOML at {}",url);
