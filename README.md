@@ -38,19 +38,19 @@ Example
 
 ```toml
 # An example mod addition
-[[additions]] # Uses TOML's array-of-tables syntax. All additions must begin with this line
+[[addition]] # Uses TOML's array-of-tables syntax. All additions must begin with this line
 loc = "mods/whatever.jar" # Final location for the downloaded file.
 url = "https://minecraft.curseforge.com/some-random-mod/download" # Location from which the new file can be downloaded.
 sha256sum = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b" # SHA256 Checksum of the file at the url above. Used to verify the integrity of the downloaded file.
 
 # An example config file addition
-[[additions]]
+[[addition]]
 loc = "config/whatever.cfg"
 url = "https://www.some-website.com/wherever/the/file/is.txt"
 sha256sum = "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7"
 
 # An example mod deletion
-[[deletions]] # All deletions must begin with this line
+[[deletion]] # All deletions must begin with this line
 loc = "mods/some-other-mod.jar" # Local location of the file to be deleted.
 sha256sum = "0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f" # SHA256 Checksum of the local file. The file will **ONLY** be deleted if the checksum is valid.
 ```

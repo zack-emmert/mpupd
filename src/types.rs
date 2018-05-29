@@ -13,7 +13,9 @@ pub struct Channel {
 
 #[derive(Deserialize,Debug,Clone)]
 pub struct Update {
+    #[serde(rename = "addition")]
     additions: Vec<Addition>,
+    #[serde(rename = "deletion")]
     deletions: Vec<Deletion>,
 }
 
