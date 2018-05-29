@@ -57,7 +57,7 @@ sha256sum = "0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f" #
 
 ## Build Instructions
 
-Dependencies:
+Build Dependencies:
 
 * [Rust](https://rustup.rs) >= 1.26
 
@@ -74,6 +74,6 @@ Additionally, copy the template configuration file in the project root to the sa
 
 ## Embedding the executable into a Modpack
 
-It is recommended that the executable be embedded into the same download as the Modpack itself, and be set to run on startup of the Minecraft, prior to the game itself. While the exact implementation details are left to the Modpack creator, the MultiMC launcher offers a "Pre-Launch Command" option suitable for this purpose. Note that it **must** be possible to specify command-line parameters from the method chosen, as the `-c` parameter is used to define the channel followed by the program.
+It is recommended that the executable be embedded into the same download as the Modpack, and be set to run on startup of the Minecraft, prior to the game itself. While the exact implementation details are left to the Modpack creator, the MultiMC launcher offers a "Pre-Launch Command" option suitable for this purpose. Note that it **must** be possible to specify command-line parameters from the method chosen, as the `-c` parameter is used to define the channel followed by the program.
 
-Additionally, separate Modpack downloads must be provided for Windows, macOS, and Linux users, due to the nature of the language in which this tool is written.
+Additionally, separate Modpack downloads must be provided per Operating System, due to the nature of the language in which this tool is written.
