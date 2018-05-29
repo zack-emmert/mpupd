@@ -76,7 +76,7 @@ Alternatively, download the binary for your platform on the releases page.
 
 ## Embedding the executable into a Modpack
 
-It is recommended that the executable be embedded into the same download as the Modpack, and be set to run on startup of the Minecraft, prior to the game itself. While the exact implementation details are left to the Modpack creator, the MultiMC launcher offers a "Pre-Launch Command" option suitable for this purpose. Note that it **must** be possible to specify command-line parameters from the method chosen, as the `-c` parameter is used to define the channel followed by the program.
+It is recommended that the executable be embedded into the same download as the Modpack, and be set to run on startup of Minecraft, prior to the game itself. While the exact implementation details are left to the Modpack creator, the MultiMC launcher offers a "Pre-Launch Command" option suitable for this purpose. Note that it **must** be possible to specify command-line parameters from the method chosen, as the `-c` parameter is used to define the channel followed by the program.
 
 Additionally, separate Modpack downloads must be provided per operating system, due to the nature of the language in which this tool is written.
 
