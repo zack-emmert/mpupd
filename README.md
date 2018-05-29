@@ -15,7 +15,7 @@ beta = "https://www.some-website.com/channels/beta.toml"
 
 ### Channel file
 
-Each update channel is required to have a single TOML file made available at the location specified in the configuration file. The channel TOML file is simply an array of strings called `updates`, each being the URL of a particular released update, also specified in TOML (see next section for more information). **These URLs must never change.** 
+Each update channel is required to have a single TOML file made available at the location specified in the configuration file. The channel TOML file is simply an array of strings called `updates`, each being the URL of a particular released update, also specified in TOML (see next section for more information). **These URLs must never change.** When a new update is released, simply edit this file and add an new entry.
 
 Example:
 
