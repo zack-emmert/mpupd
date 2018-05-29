@@ -78,12 +78,8 @@ Alternatively, download the binary for your platform on the releases page.
 
 It is recommended that the executable be embedded into the same download as the Modpack, and be set to run on startup of the Minecraft, prior to the game itself. While the exact implementation details are left to the Modpack creator, the MultiMC launcher offers a "Pre-Launch Command" option suitable for this purpose. Note that it **must** be possible to specify command-line parameters from the method chosen, as the `-c` parameter is used to define the channel followed by the program.
 
-<<<<<<< HEAD
 Additionally, separate Modpack downloads must be provided per operating system, due to the nature of the language in which this tool is written.
 
 ### Final Notes
 
 The Mac binaries available on the releases page are not signed, nor will they probably ever be.
-=======
-Additionally, separate Modpack downloads must be provided per Operating System, due to the nature of the language in which this tool is written.
->>>>>>> origin/master
