@@ -44,7 +44,6 @@ fn main() {
         if let Some(mut channel) = toml_request::<types::Channel>(&url) {
             for update in channel.sort_by_version().updates.iter() {
                 if update.version() > &version {
-                    println!("{:?}",update);
                     if let Some(update_file) = toml_request::<types::UpdateFile>(update.url()) {
                         update_file.update();
                         ts_file.set_len(0).unwrap();
