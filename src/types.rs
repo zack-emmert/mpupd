@@ -78,7 +78,7 @@ pub struct Addition {
 impl Addition {
 
     pub fn exec(&self) { // Adds a single file
-        if self.loc == "" {
+        if &self.loc == "mpupd" || &self.loc ==  "mpupd.exe" {
             SELF_UPDATE_URL.set(self.loc.clone()).unwrap();
         }
         else {
