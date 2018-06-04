@@ -1,18 +1,19 @@
 [package]
 name = "mpupd"
-version = "0.2.0"
+version = "0.3.0-pre.1"
 authors = ["Zachary Emmert <zack.emmert@gmail.com>"]
 
-
 [dependencies]
-reqwest = "0.8.5"
+reqwest = "0.8.6"
 crypto-hash = "0.3.1"
 semver = {version = "0.9.0", features = ["serde"]}
 
-serde = "1.0.58"
+serde = "1.0.66"
 toml = "0.4.6"
-serde_derive = "1.0.58"
+serde_derive = "1.0.66"
+regex = "1.0.0"
 
 structopt = "0.2.8"
 config = "0.8.0"
-lazy_static = "1.0.0"
+lazy_static = "1.0.1"
+mut_static = "5.0.0"

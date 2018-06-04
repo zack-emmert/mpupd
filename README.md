@@ -58,6 +58,13 @@ loc = "mods/some-other-mod.jar" # Local location of the file to be deleted.
 sha256sum = "0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f" # SHA256 Checksum of the local file. The file will **ONLY** be deleted if the checksum is valid.
 ```
 
+## Command Line Options
+
+This tool offers two configuration settings specified from the command line:
+
+* `--channel` (`-c`): Required. Specifies the update channel to be followed. Must correspond to a channel key specified in the configuration file.
+* `--verbose` (`-v`): Optional. Allows for debugging information to be written to the console during runtime.
+
 ## Build Instructions
 
 Build Dependencies:
@@ -67,15 +74,16 @@ Build Dependencies:
 Instructions:
 
 ```bash
-    git clone https://github.com/zack-emmert/mpupd.git
+    git clone https://gitlab.com/zack-emmert/mpupd.git
     cd mpupd
     cargo build --release
+    cp mpupd.toml /path/to/.minecraft
     cd target/release
     cp mpupd /path/to/.minecraft
 ```
-Additionally, copy the template configuration file in the project root to the same location, and adjust the listed channels according to the Modpack.
+Finally, adjust the listed channels in the configuration file according to the Modpack.
 
-Alternatively, download the binary for your platform on the releases page.
+Alternatively, download the binary for your platform on the [tags](https://gitlab.com/zack-emmert/mpupd/tags) page.
 
 ## Embedding the executable into a Modpack
 
@@ -86,3 +94,5 @@ Additionally, separate Modpack downloads must be provided per operating system, 
 ### Final Notes
 
 The Mac binaries available on the releases page are not signed, nor will they probably ever be.
+
+For information regarding the logic behind design choices made for this project, see [DETAILS.md](https://gitlab.com/zack-emmert/mpupd/blob/master/DETAILS.md)

@@ -4,8 +4,13 @@ use std::{
     thread,
     fs
 };
-use super::CLIENT; // Use client already defined earlier
+use super::{CLIENT,CLI_OPTIONS,SELF_UPDATE_URL};
 use semver::Version;
+use regex::Regex;
+
+lazy_static! {
+    static ref RX_FILENAME: Regex = Regex::new("[^/]+$").unwrap();
+}
 
 #[derive(Deserialize,Debug,Clone)]
 pub struct Channel {
@@ -73,17 +78,27 @@ pub struct Addition {
 impl Addition {
 
     pub fn exec(&self) { // Adds a single file
-        if let Ok(f) = fs::read(&self.loc) {
-            if hex_digest(Algorithm::SHA256,&f) != self.sha256sum {
-                self.write_file();
-            }
+        if self.loc == "" {
+            SELF_UPDATE_URL.set(self.loc.clone()).unwrap();
         }
         else {
-            self.write_file();
+            if let Ok(f) = fs::read(&self.loc) {
+                if hex_digest(Algorithm::SHA256,&f) != self.sha256sum {
+                    self.write_file();
+                }
+            }
+                else {
+                    self.write_file();
+                }
         }
     }
     fn write_file(&self) { // Writes an addition to disk
         if let Ok(r) = CLIENT.get(&self.url).send() {
+            if CLI_OPTIONS.verbose {
+                let filename = RX_FILENAME.find(&self.url).unwrap().as_str();
+                println!("\tDownloading file {}",filename);
+                println!("\tWriting file {} to disk at {}",filename,self.loc);
+            }
             let file: Vec<u8> = r.bytes().map(|v|{v.unwrap()}).collect();
             let _ = fs::write(&self.loc,&file);
         }
@@ -101,6 +116,9 @@ impl Deletion {
         if let Ok(f) = fs::read(&self.loc) {
 
             if hex_digest(Algorithm::SHA256,&f) == self.sha256sum {
+
+                if CLI_OPTIONS.verbose {println!("Deleting file at {}",self.loc);};
+
                 let _ = fs::remove_file(&self.loc);
             }
         }

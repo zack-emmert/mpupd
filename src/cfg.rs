@@ -7,7 +7,11 @@ use std::collections::HashMap;
 pub struct Cli {
     /// Update channel to follow.
     #[structopt(short = "c", long = "channel")]
-    pub channel: String
+    pub channel: String,
+
+    /// Verbose mode
+    #[structopt(short = "v", long = "verbose")]
+    pub verbose: bool,
 }
 
 pub fn read_cfg(loc: &str) -> HashMap<String,String> {
