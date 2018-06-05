@@ -57,6 +57,7 @@ sha256sum = "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7"
 loc = "mods/some-other-mod.jar" # Local location of the file to be deleted.
 sha256sum = "0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f" # SHA256 Checksum of the local file. The file will **ONLY** be deleted if the checksum is valid.
 ```
+As creating update files by hand can be quite tedious, a helper tool available [here](https://gitlab.com/zack-emmert/mpwrite/) (see devel branch) is being developed to assist in automating this process.
 
 ## Build Instructions
 
